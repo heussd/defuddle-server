@@ -1,0 +1,41 @@
+@baseUrl=http://localhost:3000
+
+### Swagger UI
+GET {{baseUrl}}/docs
+?? status == 200
+?? duration < 1000
+?? body contains Swagger UI
+
+
+### Parse article
+POST {{baseUrl}}/parse
+Content-Type: application/json
+{
+    "url": "https://www.tagesschau.de/inland/gesellschaft/gen-z-proteste-verbot-100.html",
+    "options": {
+        "markdown": true,
+        "separateMarkdown": true,
+        "language": "en",
+        "contentSelector": "article",
+        "includeReplies": true,
+        "removeExactSelectors": true,
+        "removePartialSelectors": true,
+        "removeImages": true,
+        "removeSmallImages": true,
+        "removeHiddenElements": true,
+        "removeLowScoring": true,
+        "removeContentPatterns": true,
+        "standardize": true,
+        "useAsync": true,
+        "debug": true,
+        "profile": true
+    }
+}
+?? status == 200
+?? duration < 10000
+?? body domain == tagesschau.de
+?? body title == "Gen Z"-Proteste: Wann dürfen Demos verboten werden?
+?? body language == de
+?? body description == Fliegende Steine, zerstörte Schaufenster und Plünderungen: Vor allem in Frankfurt kam es am Wochenende nach den "Gen Z"-Protesten zu Krawallen. Dürfen künftige Demos deshalb verboten werden? Von Antonetta Stephany und Anne Stein.
+?? body content contains Schaufenster und Plünderungen
+

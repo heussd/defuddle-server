@@ -37,6 +37,16 @@ jobs:
             type=ref,event=pr
             type=sha
 
+      - name: Build amd64 image for test
+        run: docker build --platform linux/amd64 --tag defuddle-server .
+
+      - name: Test amd64 image
+        run: |
+          trap 'docker compose down' EXIT
+          docker compose up --no-build --pull never -d
+          sleep 5s
+          npx -y httpyac calls.http --all --output short --output-failed exchange
+
       - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
         with:
           context: .
