@@ -18,8 +18,8 @@
     "fastify": "^5.12.8",
     "html-encoding-sniffer": "^7.0.0",
     "linkedom": "^0.18.15",
-    "parse5": "^8.0.1",
-    "undici": "^8.12.3"
+    "parse5": "^8.1.0",
+    "undici": "^8.12.4"
   },
   "overrides": {
     "glob": "^14.0.3"
